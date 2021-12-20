@@ -1,0 +1,70 @@
+body{
+    background-color: rgb(226,243,255);
+    font-family: 'Roboto', sans-serif;
+}
+
+  button{
+      font-size: 14px;
+      border:0;
+      border-radius: 5px;
+      background-color:rgb(121,202,171);
+      margin-left: 15px;  
+      height: 30px; 
+  }
+
+.main-container{
+    width: 40%;
+    margin: auto;
+}
+
+h1{
+    margin: auto;
+    width: max-content;
+    font-weight: 200;
+}
+
+h5{
+    font-weight: 200;
+    margin-bottom: 5px;
+}
+
+.input{
+    display: flex;
+}
+
+.input-block{
+    width: 50%;
+}
+
+#add-task{
+    width: 90%;
+    height: 30px;
+    border-radius: 2px;
+    border: 0;
+    box-shadow: 0px 0px 1px 1px rgba(34, 60, 80, 0.2);
+}
+
+#add-task-sum{
+    height: 30px;
+    border-radius: 2px;
+    border: 0;
+    box-shadow: 0px 0px 1px 1px rgba(34, 60, 80, 0.2);
+}
+
+img{
+    width: 40px;
+    height: 40px;
+}
+
+.task-container{
+    display: flex;
+}
+
+.task-c{
+    display: flex;
+    width: 36%;
+}
+
+.text-card{
+    width: 50%;
+}

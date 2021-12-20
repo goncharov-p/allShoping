@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Education project1</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <script src="script.js"></script> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Oswald:wght@200;300;400;500;600;700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class = "main-container">
+    <div class="div-main"> 
+        <h1> Учёт моих расходов</h1>
+       
+        <div class="input">
+            <div class="input-block">
+                <h5>Куда было потрачено:</h5>
+                <input placeholder="Куда было потрачено" type="text" id="add-task">   
+            </div>
+            <div class="input-block">
+                <h5>Сколько было потрачено:</h5>
+                <input placeholder="Сколько было потрачено" type="text" id="add-task-sum">
+                <button onclick=onClickButton()>Добавить</button>
+            </div>         
+        </div>
+    </div>
+    <div class = "finalSum">
+        <!--<p>Итого: <p id="demo"></p></p>-->
+        <h3>Итого:</h3>
+        <h3 id="demo"></h3>
+        <h3> p.</h3>
+    </div>
+ <div id="content-page"></div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,3 @@
+[submodule "allPurchses"]
+	path = allPurchses
+	url = git@github.com:goncharov-p/allPurchases.git
