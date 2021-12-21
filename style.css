@@ -3,14 +3,18 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
-  button{
+button{
       font-size: 14px;
       border:0;
       border-radius: 5px;
       background-color:rgb(121,202,171);
       margin-left: 15px;  
       height: 30px; 
-  }
+}
+
+p{
+    font-weight: 300;
+}
 
 .main-container{
     width: 40%;
@@ -21,6 +25,10 @@ h1{
     margin: auto;
     width: max-content;
     font-weight: 200;
+}
+
+h3{
+    font-weight: 300;
 }
 
 h5{
@@ -36,7 +44,7 @@ h5{
     width: 50%;
 }
 
-#add-task{
+#add{
     width: 90%;
     height: 30px;
     border-radius: 2px;
@@ -44,27 +52,135 @@ h5{
     box-shadow: 0px 0px 1px 1px rgba(34, 60, 80, 0.2);
 }
 
-#add-task-sum{
+#add-sum{
     height: 30px;
     border-radius: 2px;
     border: 0;
     box-shadow: 0px 0px 1px 1px rgba(34, 60, 80, 0.2);
 }
 
-img{
-    width: 40px;
-    height: 40px;
+.sum-card{
+    max-width: 32%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
-.task-container{
+.add{
+    width: 43%;
+    margin-right: 5%;
+    height: 30px;
+    border-radius: 2px;
+    border: 0;
+    box-shadow: 0px 0px 1px 1px rgba(34, 60, 80, 0.2);
+}
+
+.add-sum{
+    height: 30px;
+    margin-right: 8%;
+    border-radius: 2px;
+    border: 0;
+    box-shadow: 0px 0px 1px 1px rgba(34, 60, 80, 0.2);
+}
+
+img{
+    width: 25px;
+    height: 25px;
+}
+
+.purchases-container{
     display: flex;
+    align-items: baseline;
 }
 
 .task-c{
     display: flex;
-    width: 36%;
+    width: 38%;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .text-card{
-    width: 50%;
+    width: 48%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.finalSum{
+display: flex;
+justify-content: flex-end;
+margin-right: 12%;
+}
+
+.box-img{
+    margin-left: 10%;
+}
+
+.date-card{
+     margin-right: auto;
+}
+
+@media (max-width:425px) {
+    .main-container{
+        width: 96%;
+        margin-top: 5%;
+    }
+
+    .task-container{
+        flex-wrap: wrap;
+    }
+
+    h1{
+        margin-left: 0;
+    }
+
+    .input{
+        flex-direction: column;
+    }
+
+    .input-block{
+        width: 98%;
+    }
+
+    #add-sum{
+        width: 90%;
+    }
+
+    button{
+        margin-top: 3%;
+        margin-left: 53%;
+        width: 38%;
+    }
+
+    .task-c{
+        width: 20%;
+        flex-wrap: wrap;
+    }
+
+    .text-card{
+        width: 64%;
+    }
+
+    .date-card{
+        margin-bottom: 0;
+    }
+
+    .sum-card{
+        margin-top: 2px;
+    }
+
+
+    .add{
+        width: 80%;
+        border-radius: 4px;
+        height: 34px;
+    }
+
+    .add-sum{
+        width: 70%;
+        border-radius: 4px;
+        height: 34px;
+        margin-inline-start: 4%;
+        margin-right: 3%;
+    }
+
 }
