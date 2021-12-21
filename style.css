@@ -60,7 +60,7 @@ h5{
 }
 
 .sum-card{
-    max-width: 32%;
+    width: 32%;
     text-overflow: ellipsis;
     overflow: hidden;
 }
@@ -92,7 +92,7 @@ img{
     align-items: baseline;
 }
 
-.task-c{
+.box-content{
     display: flex;
     width: 38%;
     justify-content: flex-end;
@@ -123,6 +123,11 @@ margin-right: 12%;
     .main-container{
         width: 96%;
         margin-top: 5%;
+        margin-left: 7%;
+    }
+
+    .purchases-container{
+        flex-wrap: wrap;
     }
 
     .task-container{
@@ -151,7 +156,7 @@ margin-right: 12%;
         width: 38%;
     }
 
-    .task-c{
+    .box-content{
         width: 20%;
         flex-wrap: wrap;
     }
@@ -166,6 +171,7 @@ margin-right: 12%;
 
     .sum-card{
         margin-top: 2px;
+        width: max-content;
     }
 
 
@@ -181,6 +187,10 @@ margin-right: 12%;
         height: 34px;
         margin-inline-start: 4%;
         margin-right: 3%;
+    }
+
+    .box-img{
+        margin-left: 15%;
     }
 
 }

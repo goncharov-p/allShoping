@@ -1,15 +1,15 @@
 let allPurchases = [];
 let valueInput = '';
 let valueInputSum = '';
-let input1 = null;
-let input2 = null;
+let inputText = null;
+let inputTextSum = null;
 let activeEditCard = null;
 const link = 'http://localhost:8000';
 let activDirection = null;
 let activeSum = null;
 let now = new Date().toLocaleDateString();
 now = now.split('/').join('.');
-let finalSum = null;
+let finalSum = 0;
 
 
 const getPurchases = async () => {
@@ -19,15 +19,14 @@ const getPurchases = async () => {
   let result = await resp.json();
   allPurchases = result.data;
   render();
-  finalSum = 0;
 
 }
 
 window.onload = async function init() {
-  input1 = document.getElementById('add');
-  input2 = document.getElementById('add-sum');
-  input1.addEventListener('change', updateValue);
-  input2.addEventListener('change', updateValueSum);
+  inputText = document.getElementById('add');
+  inputTextSum = document.getElementById('add-sum');
+  inputText.addEventListener('change', updateValue);
+  inputTextSum.addEventListener('change', updateValueSum);
 
   getPurchases();
 
@@ -41,7 +40,7 @@ updateValueSum = (event) => {
   valueInputSum = event.target.value;
 }
 
- onClickButton = async () => {
+onClickButton = async () => {
   if (valueInput && valueInputSum) {
     const resp = await fetch(`${link}/createPurchases`, {
       method: 'POST',
@@ -58,13 +57,13 @@ updateValueSum = (event) => {
 
     const result = await resp.json()
       .then((resp) => {
+        if(resp.status !== 500){
         allPurchases.push(resp);
         valueInput = '';
         valueInputSum = '';
-        input1.value = '';
-        input2.value = '';
-        render();
-        finalSum = 0;
+        inputText.value = '';
+        inputTextSum.value = '';
+        render();}else{alert("Операция не может быть выполненна")}
       });
   } else {
     alert('Поле не может быть пустым')
@@ -77,39 +76,45 @@ const render = () => {
   while (content.firstChild) {
     content.removeChild(content.firstChild);
   }
-  let initialValue = 0;
 
-  finalSum = allPurchases.reduce(function(sum, currentSum) {
-    return sum + currentSum.sum;
-  },initialValue);
+  finalSum = allPurchases.reduce((sum, item) => {
+    return sum + item.sum;
+  }, 0);
+
   allPurchases
-
     .map((item, index) => {
       
       const container = document.createElement('div');
       container.className = 'purchases-container';
       const numberPosition = document.createElement("p");
-      numberPosition.innerText = index+1 + ")";
+      numberPosition.innerText = index + 1 + ') ';
       container.appendChild(numberPosition);
       const conteinerBox = document.createElement('div');
-      conteinerBox.className = 'task-c';
+      conteinerBox.className = 'box-content';
       const conteinerImg = document.createElement('div');
       conteinerImg.className = 'box-img';
 
       if (item._id === activeEditCard) {
 
-        const inputTask = document.createElement('input');
-        inputTask.className = 'add';
-        const inputTaskSum = document.createElement('input');
-        inputTaskSum.className = 'add-sum';
-        inputTask.type = 'text';
-        inputTaskSum.type = 'number';
-        inputTask.value = item.purchases;
-        inputTaskSum.value = item.sum;
-        inputTask.addEventListener('change', setActivePurchases)
-        inputTaskSum.addEventListener('change', setActiveSum)
-        container.appendChild(inputTask)
-        container.appendChild(inputTaskSum)
+        const inputPurchases = document.createElement('input');
+        inputPurchases.className = 'add';
+        const inputPurchasesSum = document.createElement('input');
+        inputPurchasesSum.className = 'add-sum';
+        inputPurchases.type = 'text';
+        inputPurchasesSum.type = 'number';
+        inputPurchases.value = item.purchases;
+        inputPurchasesSum.value = item.sum;
+        inputPurchases.addEventListener('change', setActivePurchases);
+        inputPurchasesSum.addEventListener('change', setActiveSum);
+        container.appendChild(inputPurchases);
+        container.appendChild(inputPurchasesSum);
+        const imageDone = document.createElement('img');
+        imageDone.src = 'images/gal.svg';
+        imageDone.onclick = function () {
+          updateShopingList(item._id, item.purchases, item.sum);
+          doneEditPurchases();
+        };
+        container.appendChild(imageDone);
       } else {
         const text = document.createElement('p');
         text.className = "text-card";
@@ -124,16 +129,6 @@ const render = () => {
         conteinerBox.appendChild(daTe);
         conteinerBox.appendChild(textSum);
         container.appendChild(conteinerBox);
-      }
-      if (item._id === activeEditCard) {
-        const imageDone = document.createElement('img');
-        imageDone.src = 'images/gal.svg';
-        imageDone.onclick = function () {
-          updateShopingList(item._id, item.purchases, item.sum);
-          doneEditTask();
-        };
-        container.appendChild(imageDone);
-      } else {
         const imageEdit = document.createElement('img');
         imageEdit.src = 'images/kar.svg'
         imageEdit.onclick = function () {
@@ -141,38 +136,28 @@ const render = () => {
           render();
         };
         conteinerImg.appendChild(imageEdit); 
-      }               
-
+      }
       const imageDelete = document.createElement('img');
       imageDelete.src = 'images/urn.svg';
-      imageDelete.onclick = function () {
-        onDelete(item._id,item,allPurchases.length);
-      }
+      imageDelete.onclick = () => onDelete(item._id, allPurchases.length);
       conteinerImg.appendChild(imageDelete);
       conteinerBox.appendChild(conteinerImg)
       content.appendChild(container);
-      document.getElementById("demo").innerHTML = finalSum;
     });
-    
+
+    document.getElementById("demo").innerHTML = finalSum;
 }
 
-const onDelete = async (indexToDel,item,length) => {
-  if(length === 1){
-    finalSum = 0;
-    document.getElementById("demo").innerHTML = finalSum;
-  }
-  const resp = await fetch(`${link}/deletePurchases?id=${indexToDel}`, {
+const onDelete = async (id, length) => {
+  const resp = await fetch(`${link}/deletePurchases?id=${id}`, {
     method: 'DELETE',
   });
 
-  if(resp){
-    allPurchases.forEach((item,index) => {
-      if (item._id === indexToDel) {
-        allPurchases.splice(index,1);
-      }
-      return allPurchases
-    })
+  if (resp.status === 200) {
+    allPurchases = allPurchases.filter(purchases => purchases._id !== id);
     render();
+  } else {
+    alert('Операция не может быть выполнена')
   }
 }
 
@@ -185,7 +170,6 @@ const setActiveSum = (e) => {
 
 const updateShopingList = async (_id, text, price) => {
   let updateActivDirection = activDirection;
-  console.log(activDirection)
   let updateActiveSum = activeSum;
   const resp = await fetch(`${link}/updatePurchases`, {
     method: 'PATCH',
@@ -200,7 +184,7 @@ const updateShopingList = async (_id, text, price) => {
     })
   });
 
-  if(resp){
+  if (resp.status === 200) {
     allPurchases = allPurchases.map(item => {
       const newTask = {...item};
       if (item._id === _id) {
@@ -210,10 +194,12 @@ const updateShopingList = async (_id, text, price) => {
       return newTask
     })
     render();
+  }else{
+    alert('Операция не может быть выполнена')
   }
 }
 
-const doneEditTask = () => {
+const doneEditPurchases = () => {
   activeEditCard = null;
   activDirection = null;
   activeSum = null;
